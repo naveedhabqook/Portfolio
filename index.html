@@ -153,12 +153,10 @@
     <section id="projects" class="section">
 
       <div class="section-head reveal">
-        <span>02</span>
         <h2>Projects</h2>
       </div>
 
-
-      <!-- GitHub projects will appear here automatically -->
+      <!-- Projects automatically loaded from GitHub -->
       <div
         id="project-grid"
         class="project-grid"
@@ -191,7 +189,6 @@
 
       </div>
 
-
       <p id="project-note" class="note reveal">
         Projects are loaded automatically from your public GitHub repositories.
       </p>
@@ -211,7 +208,6 @@
         </h2>
 
       </div>
-
 
       <div class="timeline">
 
@@ -314,7 +310,6 @@
         naveedhabqook777@gmail.com
       </a>
 
-
       <div class="socials">
 
         <a
@@ -362,7 +357,6 @@
     const GITHUB_API =
       `https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=updated`;
 
-
     const projectGrid =
       document.getElementById("project-grid");
 
@@ -373,42 +367,22 @@
       document.getElementById("project-note");
 
 
-    /*
-      Prevent HTML from being injected into the page
-      from repository names/descriptions.
-    */
     function escapeHtml(value = "") {
 
       return String(value)
-
         .replace(/&/g, "&amp;")
-
         .replace(/</g, "&lt;")
-
         .replace(/>/g, "&gt;")
-
         .replace(/"/g, "&quot;")
-
         .replace(/'/g, "&#039;");
 
     }
 
 
-    /*
-      Convert repository names such as:
-
-      Amazon-Sales-Analytics-PowerBI
-
-      into:
-
-      Amazon Sales Analytics PowerBI
-    */
     function formatProjectName(name) {
 
       return name
-
         .replace(/[-_]+/g, " ")
-
         .replace(/\b\w/g, letter =>
           letter.toUpperCase()
         );
@@ -416,9 +390,6 @@
     }
 
 
-    /*
-      Load repositories from GitHub
-    */
     async function loadGitHubProjects() {
 
       try {
@@ -426,8 +397,7 @@
         const response =
           await fetch(GITHUB_API, {
             headers: {
-              Accept:
-                "application/vnd.github+json"
+              Accept: "application/vnd.github+json"
             }
           });
 
@@ -447,9 +417,7 @@
 
         /*
           Show public repositories.
-
-          The Portfolio repository itself is excluded
-          so your website does not appear as a project.
+          Do not show the Portfolio repository itself.
         */
         const projects =
           repos
@@ -474,7 +442,7 @@
 
 
         /*
-          If there are no projects
+          Display projects
         */
         if (!projects.length) {
 
@@ -512,22 +480,15 @@
         }
 
 
-        /*
-          Create project cards
-        */
         projectGrid.innerHTML =
           projects.map((repo, index) => {
 
-
             const language =
-              repo.language ||
-              "Data Analytics";
-
+              repo.language || "Data Analytics";
 
             const description =
               repo.description ||
               "Data analytics project. Click to view the GitHub repository.";
-
 
             const stars =
               repo.stargazers_count || 0;
@@ -586,9 +547,11 @@
                     </span>
 
                     <span>
-                      ${stars > 0
-                        ? `★ ${stars}`
-                        : "View Project ↗"}
+                      ${
+                        stars > 0
+                          ? `★ ${stars}`
+                          : "View Project ↗"
+                      }
                     </span>
 
                   </div>
@@ -602,21 +565,13 @@
           }).join("");
 
 
-        /*
-          Update message
-        */
         projectNote.textContent =
           "Projects are loaded automatically from your public GitHub repositories. Create or update a repository and it will appear here when the portfolio is refreshed.";
 
 
       } catch (error) {
 
-
-        /*
-          If GitHub cannot be reached
-        */
-        projectCount.textContent =
-          "—";
+        projectCount.textContent = "—";
 
 
         projectGrid.innerHTML = `
@@ -663,10 +618,8 @@
 
         `;
 
-
         projectNote.textContent =
           "You can view all projects directly on GitHub.";
-
 
         console.error(
           "Could not load GitHub repositories:",
@@ -678,15 +631,12 @@
     }
 
 
-    /*
-      Start loading projects
-    */
     loadGitHubProjects();
 
   </script>
 
 
-  <!-- YOUR EXISTING JAVASCRIPT -->
+  <!-- EXISTING JAVASCRIPT -->
   <script src="script.js"></script>
 
 </body>
