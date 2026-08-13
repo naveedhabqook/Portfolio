@@ -23,13 +23,45 @@ const observer=new IntersectionObserver((entries)=>{
       observer.unobserve(entry.target);
     }
   });
-},{threshold:0.12});
-
+},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
 reveals.forEach((el)=>observer.observe(el));
 
 const progress=document.querySelector('.scroll-progress');
-window.addEventListener('scroll',()=>{
+const updateProgress=()=>{
   const max=document.documentElement.scrollHeight-window.innerHeight;
-  const amount=max>0?(window.scrollY/max)*100:0;
-  progress.style.width=`${amount}%`;
-},{passive:true});
+  progress.style.width=`${max>0?(window.scrollY/max)*100:0}%`;
+};
+window.addEventListener('scroll',updateProgress,{passive:true});
+updateProgress();
+
+/* Cursor-following card glow */
+document.querySelectorAll('.skill-grid article,.project-link').forEach(card=>{
+  card.addEventListener('pointermove',(e)=>{
+    const r=card.getBoundingClientRect();
+    card.style.setProperty('--mx',`${e.clientX-r.left}px`);
+    card.style.setProperty('--my',`${e.clientY-r.top}px`);
+  });
+});
+
+/* Very subtle 3D tilt on desktop project cards */
+const finePointer=window.matchMedia('(pointer:fine)').matches;
+if(finePointer){
+  document.querySelectorAll('.project-link').forEach(card=>{
+    card.addEventListener('pointermove',(e)=>{
+      const r=card.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5;
+      const y=(e.clientY-r.top)/r.height-.5;
+      card.style.transform=`perspective(900px) rotateX(${(-y*2.2).toFixed(2)}deg) rotateY(${(x*2.2).toFixed(2)}deg) translateY(-5px)`;
+    });
+    card.addEventListener('pointerleave',()=>{
+      card.style.transform='';
+    });
+  });
+}
+
+/* Close mobile menu after selecting a section */
+nav?.querySelectorAll('a').forEach(link=>{
+  link.addEventListener('click',()=>{
+    if(window.innerWidth<=700) nav.style.display='none';
+  });
+});
