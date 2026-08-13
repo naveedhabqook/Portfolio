@@ -29,6 +29,7 @@
   <div class="grid-glow" aria-hidden="true"></div>
   <div class="scroll-progress" aria-hidden="true"></div>
 
+
   <!-- NAVIGATION -->
   <header class="nav">
 
@@ -52,6 +53,7 @@
 
 
   <main>
+
 
     <!-- HOME -->
     <section id="home" class="hero">
@@ -84,6 +86,7 @@
 
       </div>
 
+
       <div class="stats">
 
         <div>
@@ -106,6 +109,7 @@
     </section>
 
 
+
     <!-- SKILLS -->
     <section id="skills" class="section reveal">
 
@@ -113,39 +117,105 @@
         <h2>Skills</h2>
       </div>
 
+
       <div class="skill-grid">
 
+
+        <!-- EXCEL -->
         <article>
+
           <b>Excel</b>
+
           <p>
             Data cleaning, analysis, formulas and business reporting.
           </p>
+
+          <div class="skill-tags">
+
+            <span>Data Cleaning</span>
+            <span>Pivot Tables</span>
+            <span>XLOOKUP</span>
+            <span>Formulas</span>
+            <span>Dashboards</span>
+
+          </div>
+
         </article>
 
+
+
+        <!-- SQL -->
         <article>
+
           <b>SQL</b>
+
           <p>
             Querying, filtering, joins and extracting useful business insights.
           </p>
+
+          <div class="skill-tags">
+
+            <span>SELECT</span>
+            <span>WHERE</span>
+            <span>JOINs</span>
+            <span>GROUP BY</span>
+            <span>Aggregations</span>
+
+          </div>
+
         </article>
 
+
+
+        <!-- POWER BI -->
         <article>
+
           <b>Power BI</b>
+
           <p>
             Interactive dashboards, KPIs and visual storytelling.
           </p>
+
+          <div class="skill-tags">
+
+            <span>Power Query</span>
+            <span>DAX</span>
+            <span>Data Modeling</span>
+            <span>KPI Dashboards</span>
+            <span>Visualizations</span>
+
+          </div>
+
         </article>
 
+
+
+        <!-- PYTHON -->
         <article>
+
           <b>Python</b>
+
           <p>
             Data analysis, visualization and exploratory data analysis.
           </p>
+
+          <div class="skill-tags">
+
+            <span>Pandas</span>
+            <span>NumPy</span>
+            <span>Matplotlib</span>
+            <span>Seaborn</span>
+            <span>EDA</span>
+
+          </div>
+
         </article>
+
 
       </div>
 
     </section>
+
 
 
     <!-- PROJECTS -->
@@ -155,7 +225,8 @@
         <h2>Projects</h2>
       </div>
 
-      <!-- Projects automatically loaded from GitHub -->
+
+      <!-- GitHub projects automatically appear here -->
       <div
         id="project-grid"
         class="project-grid"
@@ -188,11 +259,13 @@
 
       </div>
 
+
       <p id="project-note" class="note reveal">
         Projects are loaded automatically from your public GitHub repositories.
       </p>
 
     </section>
+
 
 
     <!-- EXPERIENCE -->
@@ -208,7 +281,9 @@
 
       </div>
 
+
       <div class="timeline">
+
 
         <div class="timeline-item">
 
@@ -234,6 +309,7 @@
         </div>
 
 
+
         <div class="timeline-item">
 
           <span class="dot"></span>
@@ -255,6 +331,7 @@
           </div>
 
         </div>
+
 
 
         <div class="timeline-item">
@@ -280,9 +357,11 @@
 
         </div>
 
+
       </div>
 
     </section>
+
 
 
     <!-- CONTACT -->
@@ -302,12 +381,14 @@
         I'm open to Data Analyst opportunities, collaborations and projects.
       </p>
 
+
       <a
         class="email"
         href="mailto:naveedhabqook777@gmail.com"
       >
         naveedhabqook777@gmail.com
       </a>
+
 
       <div class="socials">
 
@@ -339,13 +420,16 @@
 
     </section>
 
+
   </main>
+
 
 
   <!-- FOOTER -->
   <footer>
     © 2026 Naveed Habqook. Built for data, insight and impact.
   </footer>
+
 
 
   <!-- AUTOMATIC GITHUB PROJECT LOADER -->
@@ -356,32 +440,50 @@
     const GITHUB_API =
       `https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=updated`;
 
+
     const projectGrid =
       document.getElementById("project-grid");
 
+
     const projectCount =
       document.getElementById("project-count");
+
 
     const projectNote =
       document.getElementById("project-note");
 
 
+
+    /*
+      Security helper
+    */
     function escapeHtml(value = "") {
 
       return String(value)
+
         .replace(/&/g, "&amp;")
+
         .replace(/</g, "&lt;")
+
         .replace(/>/g, "&gt;")
+
         .replace(/"/g, "&quot;")
+
         .replace(/'/g, "&#039;");
 
     }
 
 
+
+    /*
+      Format GitHub repository names
+    */
     function formatProjectName(name) {
 
       return name
+
         .replace(/[-_]+/g, " ")
+
         .replace(/\b\w/g, letter =>
           letter.toUpperCase()
         );
@@ -389,15 +491,22 @@
     }
 
 
+
+    /*
+      Load GitHub projects
+    */
     async function loadGitHubProjects() {
 
       try {
 
         const response =
           await fetch(GITHUB_API, {
+
             headers: {
-              Accept: "application/vnd.github+json"
+              Accept:
+                "application/vnd.github+json"
             }
+
           });
 
 
@@ -414,9 +523,10 @@
           await response.json();
 
 
+
         /*
-          Show public repositories.
-          Do not show the Portfolio repository itself.
+          Only public repositories.
+          Portfolio itself is excluded.
         */
         const projects =
           repos
@@ -433,15 +543,17 @@
             );
 
 
+
         /*
-          Update project count
+          Update homepage project count
         */
         projectCount.textContent =
           projects.length;
 
 
+
         /*
-          Display projects
+          No projects
         */
         if (!projects.length) {
 
@@ -479,28 +591,43 @@
         }
 
 
+
+        /*
+          Create project cards
+        */
         projectGrid.innerHTML =
+
           projects.map((repo, index) => {
 
             const language =
-              repo.language || "Data Analytics";
+              repo.language ||
+              "Data Analytics";
+
 
             const description =
               repo.description ||
               "Data analytics project. Click to view the GitHub repository.";
 
+
             const stars =
               repo.stargazers_count || 0;
+
 
 
             return `
 
               <a
+
                 class="project-card project-link reveal visible"
+
                 href="${escapeHtml(repo.html_url)}"
+
                 target="_blank"
+
                 rel="noopener"
+
               >
+
 
                 <div class="project-number">
 
@@ -509,14 +636,20 @@
                 </div>
 
 
+
                 <div>
+
 
                   <p class="tag">
 
-                    ${escapeHtml(language.toUpperCase())}
+                    ${escapeHtml(
+                      language.toUpperCase()
+                    )}
+
                     • GITHUB
 
                   </p>
+
 
 
                   <h3>
@@ -532,6 +665,7 @@
                   </h3>
 
 
+
                   <p>
 
                     ${escapeHtml(description)}
@@ -539,23 +673,33 @@
                   </p>
 
 
+
                   <div class="chips">
 
-                    <span>
-                      ${escapeHtml(language)}
-                    </span>
 
                     <span>
+
+                      ${escapeHtml(language)}
+
+                    </span>
+
+
+                    <span>
+
                       ${
                         stars > 0
                           ? `★ ${stars}`
                           : "View Project ↗"
                       }
+
                     </span>
+
 
                   </div>
 
+
                 </div>
+
 
               </a>
 
@@ -564,13 +708,19 @@
           }).join("");
 
 
+
         projectNote.textContent =
           "Projects are loaded automatically from your public GitHub repositories. Create or update a repository and it will appear here when the portfolio is refreshed.";
 
 
-      } catch (error) {
+      }
 
-        projectCount.textContent = "—";
+
+      catch (error) {
+
+
+        projectCount.textContent =
+          "—";
 
 
         projectGrid.innerHTML = `
@@ -581,25 +731,30 @@
               !
             </div>
 
+
             <div>
 
               <p class="tag">
                 GITHUB
               </p>
 
+
               <h3>
                 Projects unavailable
               </h3>
 
+
               <p>
                 GitHub projects could not be loaded right now.
               </p>
+
 
               <div class="chips">
 
                 <span>
                   GitHub
                 </span>
+
 
                 <a
                   href="https://github.com/naveedhabqook"
@@ -611,14 +766,17 @@
 
               </div>
 
+
             </div>
 
           </div>
 
         `;
 
+
         projectNote.textContent =
           "You can view all projects directly on GitHub.";
+
 
         console.error(
           "Could not load GitHub repositories:",
@@ -630,13 +788,19 @@
     }
 
 
+
+    /*
+      Start GitHub project loading
+    */
     loadGitHubProjects();
 
   </script>
 
 
+
   <!-- EXISTING JAVASCRIPT -->
   <script src="script.js"></script>
+
 
 </body>
 </html>
