@@ -131,13 +131,7 @@
           </p>
 
           <div class="skill-tags">
-
-            <span>Data Cleaning</span>
-            <span>Pivot Tables</span>
-            <span>XLOOKUP</span>
-            <span>Formulas</span>
-            <span>Dashboards</span>
-
+            <span>Data Cleaning, Pivot Tables, XLOOKUP, Formulas, Dashboards</span>
           </div>
 
         </article>
@@ -154,13 +148,7 @@
           </p>
 
           <div class="skill-tags">
-
-            <span>SELECT</span>
-            <span>WHERE</span>
-            <span>JOINs</span>
-            <span>GROUP BY</span>
-            <span>Aggregations</span>
-
+            <span>SELECT, WHERE, JOINs, GROUP BY, Aggregations, CTEs</span>
           </div>
 
         </article>
@@ -177,13 +165,7 @@
           </p>
 
           <div class="skill-tags">
-
-            <span>Power Query</span>
-            <span>DAX</span>
-            <span>Data Modeling</span>
-            <span>KPI Dashboards</span>
-            <span>Visualizations</span>
-
+            <span>Power Query, DAX, Data Modeling, KPI Dashboards, Visualizations</span>
           </div>
 
         </article>
@@ -200,13 +182,7 @@
           </p>
 
           <div class="skill-tags">
-
-            <span>Pandas</span>
-            <span>NumPy</span>
-            <span>Matplotlib</span>
-            <span>Seaborn</span>
-            <span>EDA</span>
-
+            <span>Pandas, NumPy, Matplotlib, Seaborn, EDA</span>
           </div>
 
         </article>
@@ -454,9 +430,6 @@
 
 
 
-    /*
-      Security helper
-    */
     function escapeHtml(value = "") {
 
       return String(value)
@@ -475,9 +448,6 @@
 
 
 
-    /*
-      Format GitHub repository names
-    */
     function formatProjectName(name) {
 
       return name
@@ -492,9 +462,6 @@
 
 
 
-    /*
-      Load GitHub projects
-    */
     async function loadGitHubProjects() {
 
       try {
@@ -525,8 +492,8 @@
 
 
         /*
-          Only public repositories.
-          Portfolio itself is excluded.
+          Show public repositories.
+          Portfolio repository itself is excluded.
         */
         const projects =
           repos
@@ -553,7 +520,7 @@
 
 
         /*
-          No projects
+          Display projects
         */
         if (!projects.length) {
 
@@ -789,9 +756,6 @@
 
 
 
-    /*
-      Start GitHub project loading
-    */
     loadGitHubProjects();
 
   </script>
